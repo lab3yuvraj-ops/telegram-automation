@@ -66,7 +66,7 @@ class Replicate:
     def image(self,prompt,path,refs=(),aspect='16:9'):
         if aspect!='16:9':raise ValueError('Pruna production requires 16:9.')
         self.checkpoint()
-        visual_reference=ROOT/'assets/visual-tone-reference.png'
+        visual_reference=ROOT/'app/visual-tone-reference.png'
         all_refs=([('STYLE-REFERENCE',visual_reference)] if visual_reference.exists() else [])+list(refs)
         model=IMAGE_EDIT_MODEL if all_refs else IMAGE_MODEL
         styled_prompt=(prompt if prompt.startswith(STYLE) else STYLE+'\n'+prompt)

@@ -5,7 +5,6 @@ WORKDIR /app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY app ./app
-COPY assets ./assets
 COPY docs/client-prompts.txt ./docs/client-prompts.txt
 COPY run.py ./
 EXPOSE 8080
