@@ -7,12 +7,11 @@ def main():
     p=argparse.ArgumentParser(description='Nightfall: title to 60-second horror video')
     p.add_argument('--title');p.add_argument('--mode',choices=['demo','live'],default='demo')
     p.add_argument('--language',choices=['Hindi','Hinglish','English'],default='Hindi')
-    p.add_argument('--audio-mode',choices=['elevenlabs','local','studio','native'],default='elevenlabs')
     args=p.parse_args()
     if args.title:
         from app import store, pipeline, auth
         from app.models import Request
-        store.init();auth.init();ident=store.create(Request(title=args.title,mode=args.mode,language=args.language,audio_mode=args.audio_mode).model_dump())
+        store.init();auth.init();ident=store.create(Request(title=args.title,mode=args.mode,language=args.language).model_dump())
         pipeline.enqueue(ident)
         last=''
         while True:

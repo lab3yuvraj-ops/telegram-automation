@@ -1,7 +1,7 @@
 import copy
 import json
 import pytest
-from app import production, media, pipeline, store, auth, local_tts, elevenlabs_tts
+from app import production, media, pipeline, store, auth, elevenlabs_tts
 from app.models import Request, validate_links
 from app.planning import demo_plan
 
@@ -9,7 +9,7 @@ def test_title_only_defaults():
     request=Request(title='The locked door')
     assert request.mode=='live' and request.audio_mode=='elevenlabs'
 
-def test_angle_selection_and_audio_modes():
+def test_angle_selection_uses_elevenlabs_narration():
     p=demo_plan({'title':'test'})
     scene=p['scenes']['scenes'][2];scene['background_angle']=2
     req=Request(title='test').model_dump()
@@ -58,24 +58,10 @@ def test_retry_operation_is_also_protected_from_regeneration(tmp_path,monkeypatc
     store.save(folder/'raw-01-retry.operation.json',{'name':'operations/pending'})
     with pytest.raises(ValueError,match='unresolved'):pipeline.archive_scene(ident,1)
 
-def test_native_speech_trim_renders_real_media(tmp_path):
-    if not media.available():pytest.skip('FFmpeg unavailable')
-    video=tmp_path/'native.mp4'
-    media.ff('-f','lavfi','-i','color=c=blue:s=320x180:r=24:d=8','-f','lavfi','-i','sine=frequency=440:duration=8','-c:v','libx264','-c:a','aac','-shortest',video)
-    output=tmp_path/'edited.mp4'
-    media.render_scene(video,None,output,'16:9',True,(1,6))
-    assert abs(media.duration(output)-7.5)<.05
-    streams=media.probe(output)['streams']
-    assert {'video','audio'}<={s['codec_type'] for s in streams}
-
 def test_live_orchestration_with_fake_provider(tmp_path,monkeypatch):
-    """Exercise all six acts, native/dialogue split, assets and packaging without API charges."""
+    """Exercise all six acts, ElevenLabs narration, assets and packaging without API charges."""
     monkeypatch.setattr(store,'DATA',tmp_path)
-    # No media-provider selection variables are required; Pruna is fixed in code.
-    monkeypatch.delenv('IMAGE_PROVIDER',raising=False)
-    monkeypatch.delenv('VIDEO_PROVIDER',raising=False)
     monkeypatch.setenv('REPLICATE_API_TOKEN','fake-test-token')
-    monkeypatch.setenv('TEXT_PROVIDER','groq')
     monkeypatch.setenv('ALLOW_PAID_GENERATION','true')
     monkeypatch.setattr(media,'available',lambda:True)
     monkeypatch.setattr(media,'duration',lambda path:8)
@@ -83,7 +69,6 @@ def test_live_orchestration_with_fake_provider(tmp_path,monkeypatch):
     monkeypatch.setattr(media,'render_scene',lambda video,audio,target,*args:target.write_bytes(b'edited'))
     monkeypatch.setattr(media,'thumbnail',lambda source,target,title:target.write_bytes(b'thumbnail'))
     monkeypatch.setattr(media,'finish',lambda folder,*args,**kwargs:((folder/'final.mp4').write_bytes(b'final') and {'duration_seconds':45}))
-    monkeypatch.setattr(local_tts,'synthesize',lambda text,target,check:target.write_bytes(b'local-hindi-audio'))
     monkeypatch.setattr(elevenlabs_tts,'synthesize',lambda text,target,check:target.write_bytes(b'elevenlabs-hindi-audio'))
     store.init()
     p=demo_plan({'title':'The door'})

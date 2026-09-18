@@ -141,7 +141,7 @@ class Service:
             if command=='/script':
                 package={k:storage.read_json(job['id'],k+'.json') for k in ('story','publishing')}
                 self.api.call('sendDocument',{'chat_id':cid},files={'document':('script-and-publishing.json',json.dumps(package,ensure_ascii=False,indent=2).encode(),'application/json')});return
-        try:request=Request(title=text,language=os.getenv('TELEGRAM_LANGUAGE','Hindi'),mode=os.getenv('TELEGRAM_PRODUCTION_MODE','live'),audio_mode=os.getenv('TELEGRAM_AUDIO_MODE','elevenlabs')).model_dump()
+        try:request=Request(title=text,language=os.getenv('TELEGRAM_LANGUAGE','Hindi'),mode=os.getenv('TELEGRAM_PRODUCTION_MODE','live')).model_dump()
         except ValueError:self.api.text(cid,'Send a title between 2 and 120 characters.');return
         if request['mode']=='live' and os.getenv('ALLOW_PAID_GENERATION','false').lower()!='true':
             self.api.text(cid,'Live production needs Replicate billing and operator approval.');return

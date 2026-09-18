@@ -1,6 +1,5 @@
 import json
 import pytest
-from cryptography.fernet import Fernet
 from fastapi.testclient import TestClient
 from app import store,auth,pipeline,storage,telegram_bot as tg
 from app.main import app
@@ -20,7 +19,6 @@ def service(tmp_path,monkeypatch):
     monkeypatch.setattr(store,'DATA',tmp_path)
     monkeypatch.delenv('DATABASE_URL',raising=False)
     monkeypatch.delenv('S3_BUCKET',raising=False)
-    monkeypatch.setenv('APP_ENCRYPTION_KEY',Fernet.generate_key().decode())
     monkeypatch.setenv('TELEGRAM_PRODUCTION_MODE','demo')
     monkeypatch.setenv('TELEGRAM_BOT_TOKEN','')
     monkeypatch.setenv('TELEGRAM_ALLOWED_USER_IDS','101,202,303')

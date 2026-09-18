@@ -1,10 +1,10 @@
 fastapi==0.133.1
 uvicorn==0.41.0
-google-genai==2.23.0
 pydantic==2.13.4
 python-dotenv==1.2.2
 Pillow==12.2.0
 httpx==0.28.1
-edge-tts==7.2.7
 pytest==9.1.1
-cryptography==46.0.7
+replicate==1.0.7
+psycopg[binary,pool]==3.3.5
+boto3==1.42.89

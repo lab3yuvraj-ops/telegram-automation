@@ -21,7 +21,7 @@ def init():
         c.execute('CREATE INDEX IF NOT EXISTS script_history_owner ON script_history(owner,created)')
         if not database.postgres(): c.execute("UPDATE jobs SET status='paused', stage='Interrupted. Resume to continue.' WHERE status IN ('running','queued')")
 
-def create(request, owner='admin',key_cipher=None,ident=None):
+def create(request, owner='admin',ident=None):
     ident=ident or uuid.uuid4().hex
     folder(ident) # Validate any supplied id before using it.
     with db() as c:
@@ -35,7 +35,6 @@ def create(request, owner='admin',key_cipher=None,ident=None):
         if database.postgres() and c.execute("SELECT COUNT(*) FROM jobs WHERE status IN ('running','queued')").fetchone()[0]>=int(os.getenv('MAX_QUEUED_JOBS','10000')):raise ValueError('The production queue is full. Please retry later.')
         c.execute('INSERT INTO jobs (id,request,status,stage,progress,error,created,cancel,owner) VALUES (?,?,?,?,?,?,?,?,?)',(ident,json.dumps(request,ensure_ascii=False),'queued','Waiting for worker',0,None,datetime.now(timezone.utc).isoformat(),0,owner))
         c.execute('UPDATE jobs SET enqueued=? WHERE id=?',(time.time(),ident))
-        if key_cipher:c.execute('INSERT INTO job_keys VALUES (?,?)',(ident,key_cipher))
     folder(ident).mkdir(parents=True)
     return ident
 

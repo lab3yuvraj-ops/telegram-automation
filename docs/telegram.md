@@ -7,7 +7,7 @@ Telegram replaces the dashboard. HTTP exposes only `/healthz`; login, signup, fi
 1. Create a bot through Telegram's official `@BotFather` and copy its bot token into `TELEGRAM_BOT_TOKEN` in `.env.telegram`.
 2. Start the backend with `python run.py`. Send `/start` to the bot. It replies with your private chat ID even before production access is enabled.
 3. Set `TELEGRAM_ALLOWED_USER_IDS` to a comma-separated list of approved Telegram user IDs. Only those private chats can submit titles; groups are ignored.
-4. Keep `REPLICATE_API_TOKEN`, `OPENAI_API_KEY`, `ELEVENLABS_API_KEY`, and `ELEVENLABS_VOICE_ID` in `.env`. `APP_ENCRYPTION_KEY` is optional for this Telegram-only deployment; when omitted, encrypted legacy credentials are only usable until the process restarts. Enable Replicate billing and `ALLOW_PAID_GENERATION=true` for live films. `TELEGRAM_PRODUCTION_MODE=demo` exercises delivery without external calls.
+4. Keep `REPLICATE_API_TOKEN`, `OPENAI_API_KEY`, `ELEVENLABS_API_KEY`, and `ELEVENLABS_VOICE_ID` in `.env`. Enable Replicate billing and `ALLOW_PAID_GENERATION=true` for live films. `TELEGRAM_PRODUCTION_MODE=demo` exercises delivery without external calls.
 5. Send only the title. The bot queues production, updates its progress message, and uploads the finished MP4 to the same private chat.
 
 No personal Telegram login, phone number, API ID/hash or webhook is required. This implementation uses Bot API long polling. If this bot already has a webhook, remove it before starting polling; the backend will not silently take over another integration.

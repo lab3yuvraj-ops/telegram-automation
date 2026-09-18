@@ -59,10 +59,8 @@ class Replicate:
             return response.content
 
     def structured(self,prompt,schema):
-        from . import openai_text, groq_text
-        if openai_text.enabled():return openai_text.structured(prompt,schema,self.checkpoint)
-        if groq_text.enabled():return groq_text.structured(prompt,schema,self.checkpoint)
-        raise RuntimeError('TEXT_PROVIDER must be openai.')
+        from . import openai_text
+        return openai_text.structured(prompt,schema,self.checkpoint)
 
     def image(self,prompt,path,refs=(),aspect='16:9'):
         if aspect!='16:9':raise ValueError('Pruna production requires 16:9.')

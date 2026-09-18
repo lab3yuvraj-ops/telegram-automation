@@ -12,8 +12,6 @@ Use the Replicate API with Pruna models for all image and video generation. Do n
 - Reference-based image edits: `prunaai/p-image-edit` when canonical character or location images are supplied.
 - Video: `prunaai/p-video-2` for image-to-video generation.
 - Replicate authentication: `REPLICATE_API_TOKEN`.
-- Image provider selector: `IMAGE_PROVIDER=replicate_pruna`.
-- Video provider selector: `VIDEO_PROVIDER=replicate_pruna`.
 
 Keep Replicate credentials in environment variables or Railway secrets. Never print, commit, persist in logs, or include credentials in user-facing output.
 

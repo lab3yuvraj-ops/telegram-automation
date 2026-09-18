@@ -6,10 +6,6 @@ import httpx
 from pydantic import ValidationError
 
 
-def enabled():
-    return os.getenv('TEXT_PROVIDER', 'openai') == 'openai'
-
-
 def structured(prompt, schema, checkpoint):
     key = os.getenv('OPENAI_API_KEY', '').strip()
     if not key:
