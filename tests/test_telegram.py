@@ -35,8 +35,14 @@ def test_title_routes_once_and_preserves_chat_owner(service):
     service.handle(update());service.handle(update())
     jobs=store.all_jobs();assert len(jobs)==1 and jobs[0]['owner']=='tg_900_101'
     assert jobs[0]['request']['title']=='Haunted road'
+    assert jobs[0]['request']['audio_mode']=='local'
     service.notify();service.notify()
     assert len(service.api.calls)==1
+
+def test_casual_message_gets_video_only_reply_without_a_job(service):
+    service.handle(update('Hey, how are you?'))
+    assert store.all_jobs()==[]
+    assert service.api.calls[-1][1]['text']==tg.VIDEO_ONLY
 
 def test_allowed_private_chat_can_start_and_groups_are_ignored(service):
     service.handle(update(uid=303));service.handle(update(kind='group',ident=2))

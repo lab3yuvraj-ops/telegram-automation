@@ -12,6 +12,12 @@ from .models import Request
 STATE='not_configured'
 
 HELP='Send a story title to create a six-act horror film. I will update a progress message and send the finished video here.\n\n/status — latest production\n/cancel — stop latest production\n/resume — continue saved work\n/scene 3 — regenerate scene 3 (paid in live mode)\n/video — send latest finished video again\n/script — script and publishing metadata\n/id — your chat ID\n/help — show commands'
+VIDEO_ONLY='This Telegram is only for generating video. Please give us your idea and we will create a video.'
+CASUAL_MESSAGES={
+    'hi','hello','hey','hey there','hello there','hi there','how are you',
+    'hey how are you','hello how are you','good morning','good afternoon','good evening',
+    'namaste','kaise ho','कैसे हो','नमस्ते','क्या हाल है',
+}
 
 class BotError(Exception):
     def __init__(self,code=0,retry_after=10,uncertain=False):
@@ -45,6 +51,11 @@ def allowed(user,chat):
     allowed_ids={value.strip() for value in os.getenv('TELEGRAM_ALLOWED_USER_IDS','').split(',') if value.strip()}
     return str(chat)==str(user) and str(user) in allowed_ids
 
+def is_casual_message(text):
+    normalized=re.sub(r'[^\w\s]', ' ', text.casefold(), flags=re.UNICODE)
+    normalized=' '.join(normalized.split())
+    return normalized in CASUAL_MESSAGES
+
 def owner(bot,user):return 'tg_'+bot+'_'+str(user)
 
 def ensure_user(name):
@@ -73,6 +84,9 @@ class Service:
         if not allowed(uid,cid):return
         if command in ('/start','/id'):
             self.api.text(cid,HELP)
+            return
+        if not command.startswith('/') and is_casual_message(text):
+            self.api.text(cid,VIDEO_ONLY)
             return
         name=owner(self.bot,uid);ensure_user(name)
         if command=='/help':self.api.text(cid,HELP);return
