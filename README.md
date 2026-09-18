@@ -8,18 +8,22 @@ Telegram is the entire user interface. The dashboard, signup, login, browser API
 
 1. Install Python dependencies with `pip install -r requirements.txt`; install FFmpeg and FFprobe.
 2. Fill `TELEGRAM_BOT_TOKEN` in `.env.telegram`, and set `TELEGRAM_ALLOWED_USER_IDS` to the approved private-chat IDs. A blank token leaves Telegram disabled. Groups are ignored.
-3. Keep your existing `.env`, encryption key, Replicate token, and Groq key. For a fresh setup, start from `.env.example` and generate a Fernet key.
+3. Keep your existing `.env`, encryption key and Replicate token. For a fresh setup, start from `.env.example` and generate a Fernet key. Set `OPENAI_API_KEY` for writing and `ELEVENLABS_API_KEY` plus `ELEVENLABS_VOICE_ID` for Hindi narration.
 4. Run `python run.py`. Use one local process. Send your title to the bot.
 
 Live generation requires a Replicate token with Nano Banana and Pruna P-Video-2 access, an OpenAI API key for structured writing, and an ElevenLabs API key plus voice ID for Hindi narration. Telegram defaults to `TELEGRAM_AUDIO_MODE=elevenlabs`, which layers narration after video generation. Set `TELEGRAM_PRODUCTION_MODE=demo` for a no-generation-cost assembly/delivery test.
 
 ## Railway
 
-The Telegram service runs `python run.py` with one replica and health endpoint `/healthz`. Existing worker services run `python -m app.worker`; PostgreSQL and private S3 storage are shared. Set Telegram variables only on the Telegram service. Worker model, encryption and storage variables remain unchanged.
+The Telegram service runs `python run.py` with one replica and health endpoint `/healthz`. Existing worker services run `python -m app.worker`; PostgreSQL and private S3 storage are shared. Add the same media, OpenAI and ElevenLabs variables to every service that can run a worker. Set Telegram variables only on the Telegram service. Worker model, encryption and storage variables remain unchanged.
+
+## Optional YouTube publishing through Zernio
+
+Finished videos always require a Telegram `/approve` decision. Configure `ZERNIO_API_KEY` and `ZERNIO_YOUTUBE_ACCOUNT_ID` after connecting the intended YouTube account in Zernio. Keep `YOUTUBE_PUBLISH_ENABLED=false` until the deployment owner is ready for real posts. When enabled, approval uploads the completed MP4 and creates one YouTube post using the first generated title, the generated description and tags. `YOUTUBE_VISIBILITY` defaults to `public`; choose `unlisted` or `private` before enabling if that is the intended release mode.
 
 ## Controls
 
-`/status`, `/cancel`, `/resume`, `/video`, `/script`, `/scene`, `/help` and `/id` work inside Telegram. Only user IDs in `TELEGRAM_ALLOWED_USER_IDS` can create paid productions.
+`/status`, `/cancel`, `/resume`, `/video`, `/script`, `/scene`, `/approve`, `/reject`, `/regenerate`, `/keep`, `/help` and `/id` work inside Telegram. Only user IDs in `TELEGRAM_ALLOWED_USER_IDS` can create paid productions.
 
 ## Verification
 
