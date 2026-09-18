@@ -1,0 +1,10 @@
+*
+!Dockerfile
+!requirements.txt
+!run.py
+!app/
+!app/*.py
+!app/showcase_assets/
+!app/showcase_assets/peepal-wali-dayan.mp4
+!docs/
+!docs/client-prompts.txt

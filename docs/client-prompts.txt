@@ -1,0 +1,1349 @@
+1-  IDEA  GENERATION  You  are  an  expert  YouTube  content  strategist  for  a  Hindi-language  2D  animated  folk-horror  story  
+channel
+ 
+for
+ 
+Indian
+ 
+audiences
+ 
+(chudail,
+ 
+pret-aatma,
+ 
+tantrik,
+ 
+shamshan,
+ 
+cursed
+ 
+objects)
+ 
+in
+ 
+a
+ 
+cinematic
+ 
+2D
+ 
+animated
+ 
+style
+ 
+with
+ 
+a
+ 
+dread-building
+ 
+narrator.
+  I  am  using:  [METHOD  A  —  Category:  PASTE  CATEGORY  NAME]  OR  [METHOD  B  —  My  concept:  PASTE  folk  legend  /  real  haunted  place  /  monster  name  /  keyword]   Give  me  [NUMBER  e.g.  10]  story  ideas.   For  each:  •  A  punchy  Hindi  title  (Devanagari)  +  English  transliteration  •  A  one-line  English  hook  •  A  2–3  line  brief  (story  +  supernatural  threat  +  human  emotional  core)  •  The  core  hook  (FEAR  /  SHOCK  /  CURIOSITY  /  DREAD  /  REVENGE  /  TABOO)  •  The  monster/entity  archetype   RULES:  •  Any  REAL  place/event/person  must  be  100%  real  and  verifiable  (Golden  Rule);  original  
+supernatural
+ 
+plot
+ 
+is
+ 
+fiction.
+ •  Each  idea  needs  a  strong  hook  +  relatable  human  victim.  •  Favour  concepts  serialisable  into  numbered  parts.  •  Return  as  a  numbered  list.   IF  METHOD  B:  Also  confirm  in  1–2  lines  what  my  input  is  and  why  it  fits  the  niche.    
+PROVEN  HORROR  CATEGORIES   #  CATEGORY  EXAMPLE  ANGLE  HOOK  
+1  Chudail  /  Dayaan  Aadamkhor  chudail,  banjaran  dayaan  
+FEAR  +  SHOCK  
+2  Pret-Aatma  &  Possession  Possessed  dulhan,  kabristan  ki  rooh  
+FEAR  +  DREAD  
+3  Tantrik  /  Kala  Jadu  Sifli  amal,  aghori  ka  sauda  DREAD  +  CURIOSITY  
+4  Shamshan  /  Graveyard  Shamshan  ka  rakshas,  murdaghar  
+SHOCK  +  TABOO  
+5  Cursed  Object  Shrapit  chudiyan,  shrapit  kitaab  CURIOSITY  +  DREAD  
+6  Haunted  Location  (Real)  Bhangarh,  Kuldhara,  haunted  dhaba  
+CURIOSITY  +  FEAR  
+7  Yakshini  /  Mohini  Jungle  ki  mohini,  yakshini  ka  jaal  CURIOSITY  +  SHOCK  
+8  Pishach  /  Rakshas  Baccho  ko  le  jaane  wala  shaitaan  
+SHOCK  +  AWE  
+9  Bhutiya  Transport  Bhutiya  bus,  raat  ki  aakhri  train  FEAR  +  CURIOSITY  
+10  Village  Folk  Horror  Peepal  ka  ped,  amavasya  ki  raat  DREAD  +  TABOO  
+11  Revenge  Spirit  Anyay  ki  badla-leti  aatma  REVENGE  +  OUTRAGE  
+12  Cursed  Love  /  Shrapit  Prem  
+Mar  kar  bhi  na  chhodne  wali  aatma  
+SADNESS  +  DREAD  
+13  Haunted  Hospital  /  Asylum  
+Bhutiya  aspataal,  raat  ki  nurse  SHOCK  +  FEAR  
+14  Black-Magic  Family  Curse  
+Khandaani  shraap,  peedhi-dar-peedhi  
+DREAD  +  BETRAYAL  
+15  Jinn  /  Sifli  Kabze  wala  jinn,  jinn  ka  saaya  FEAR  +  CURIOSITY  
+16  Sachchi  Ghatna  (Real-Based)  
+"Sachchi  ghatna  par  aadharit"  framing  
+CURIOSITY  +  FEAR  
+ 
+3-  STORY  N0-  2  You  are  an  expert  horror  scriptwriter  for  a  Hindi  2D  animated  folk-horror  channel  for  Indian  
+audiences.
+  Story  Title  (Hindi  +  English):  [PASTE]  Tagline/Hook:  [PASTE]  Language:  [Hindi/Hinglish]  Duration:  [e.g.  15  min]  Word  Count:  [Duration  ×  150]  Monster/Entity:  [PASTE]  
+ GOLDEN  RULE:  Any  real  location/date/name/event  must  be  100%  real  and  verifiable;  label  disputed  real  claims  
+"maana
+ 
+jata
+ 
+hai".
+ 
+Original
+ 
+supernatural
+ 
+plot
+ 
+is
+ 
+fiction;
+ 
+never
+ 
+present
+ 
+fiction
+ 
+as
+ 
+real
+ 
+news.
+  ##  Act  1  –  HOOK  (First  60–90  sec)  -  Authenticity  anchor  -  Ordinary  relatable  protagonist  -  ONE  wrongness  signal  -  Isolation  +  withheld  threat  -  End  on  an  unanswerable  question.   ##  Act  2  –  RUPTURE  (~15%)  -  First  clearly  supernatural  event.  -  Isolation  locks  in.   ##  Act  3  –  ESCALATION  (~30–40%)  -  Repeated  worse  encounters.  -  The  entity's  "rule"  is  learned.  -  Micro-cliffhanger  every  60–120  sec.   ##  Act  4  –  TRUTH  /  BACKSTORY  (~15%)  -  Reveal  WHY:    -  Curse    -  Wronged  spirit    -  Tantrik's  deal    -  Old  injustice  -  Use  a  wound-to-present  time  gap.   ##  Act  5  –  CLIMAX  (~15%)  -  Confrontation.  -  Survival  by  wit/ritual,  not  power.   ##  Act  6  –  RESOLUTION  /  TWIST  (~5–10%)  -  Grievance  named.  -  Dark  twist.  -  Spirit  often  itself  a  wronged  victim.   
+4-  CHARACTER  IMAGE  PROMPTS  No-3  list  ALL  characters  (humans,  the  entity/ghost,  key  side  characters).  For  EACH,  output:   1.  NAME  (from  script).   
+2.  ASSET  TAG  –  @CHAR-XX-NAME     (e.g.  @CHAR-01-MEERA,  @CHAR-02-ROHAN,  @CHAR-03-CHUDAIL).     This  is  the  tag  I  will  use  in  Flow.   3.  REFERENCE-SHEET  IMAGE  PROMPT     (a  still,  generated  in  Nano  Banana  /  Google  Flow)  covering:     age,  build,  skin  tone,  exact  face  (jawline,  eyes,  nose,  eyebrows),  hair  colour/length/style,  facial  
+hair,
+ 
+distinguishing
+ 
+marks
+ 
+(bindi,
+ 
+glasses,
+ 
+scar,
+ 
+jewellery,
+ 
+tilak),
+ 
+exact
+ 
+Indian-accurate
+ 
+clothing,
+ 
+and
+ 
+a
+ 
+neutral
+ 
+3/4
+ 
+reference
+ 
+pose
+ 
+with
+ 
+a
+ 
+clear
+ 
+front-facing
+ 
+expression.
+  **2D  semi-realistic  cartoon  illustration**,  bold  clean  outlines,  smooth  flat  cel  shading,  Indian  
+character
+ 
+design,
+ 
+expressive
+ 
+detailed
+ 
+face,
+ 
+neutral
+ 
+grey
+ 
+studio
+ 
+background,
+ 
+full
+ 
+character
+ 
+reference
+ 
+sheet,
+ 
+flat
+ 
+2D
+ 
+vector
+ 
+art,
+ 
+no
+ 
+text,
+ 
+no
+ 
+watermark,
+ 
+**--ar
+ 
+16:9**
+  ###  ENTITY/GHOST  EXTRA  TAGS  (chudail/pret/pishach/jinn):  -  Pale  or  greenish-grey  skin  -  Long  messy  black  hair  -  Glowing  white/red  eyes  -  Tattered  saree  -  Eerie  under-glow   After  all  characters,  output  a  **CHARACTER  TAG  TABLE**:   |  Tag  |  Name  |  One-line  Look  |   Then  confirm:  **"All  character  sheets  ready.  Upload  +  tag  in  Flow,  then  proceed  to  Step  3B."**   Example  tag-table  row:  @CHAR-03-CHUDAIL  |  Kaushalya  (spectral  bride)  |  pale-grey  skin,  frayed  red  bridal  veil,  
+glowing
+ 
+red
+ 
+eyes,
+ 
+long
+ 
+black
+ 
+hair.
+  
+5-  IMAGE  PROMPTS  No.4-  From  the  LOCKED  script,  list  every  distinct  LOCATION.  For  EACH,  output  a  clean  empty  
+background-plate
+ 
+prompt
+ 
+in
+ 
+this
+ 
+exact
+ 
+structure.
+  Provide  2–3  angle  variations  for  any  major  recurring  location  (e.g.  wide  +  close).  After  all  plates,  
+output
+ 
+a
+ 
+BACKGROUND
+ 
+TAG
+ 
+TABLE
+ 
+(Tag
+ 
+|
+ 
+Location
+ 
+|
+ 
+one-line
+ 
+look).
+ 
+Then
+ 
+confirm:
+ "All  background  plates  ready.  Upload  +  tag  in  Flow,  then  proceed  to  Step  3C."   Example:  #BGD-02-MIRROR-ROOM  |  dusty  room  with  an  ornate  full-length  mirror,  barred  window,  cold  
+moonlight
+ 
+on
+ 
+a
+ 
+stone
+ 
+floor.
+ 
+  
+6-  ANIMATION  PROMPTS  No.5-  Break  the  script  into  6–8  second  scenes  covering  the  ENTIRE  video.  State  at  the  top:   "Duration:  [X]  min  |  Minimum  Scenes:  [X×7]  |  Generating:  [Z]"   Use  ONLY  my  uploaded  assets  via  their  tags  (@CHAR-XX-NAME,  #BGD-XX-NAME).  Copy  
+each
+ 
+dialogue
+ 
+line
+ 
+EXACTLY
+ 
+from
+ 
+Step
+ 
+2
+ 
+(Devanagari,
+ 
+same
+ 
+words).
+ 
+For
+ 
+each
+ 
+scene
+ 
+output
+ 
+BOTH
+ 
+a
+ 
+STILL
+ 
+IMAGE
+ 
+prompt
+ 
+and
+ 
+an
+ 
+ANIMATION
+ 
++
+ 
+AUDIO
+ 
+prompt
+ 
+in
+ 
+the
+ 
+EXACT
+ 
+format
+ 
+below.
+  ---   SCENE  [N]  —  [2–3  word  title]   TIMESTAMP:**  [MM:SS  –  MM:SS]  *(max  6–8  sec)   ASSETS:  [#BGD-XX-NAME]  +  [@CHAR  tags  present,  or  "none"]   SPEAKER:  [NARRATOR  (layer  in  edit)  /  @CHAR-XX-NAME  /  none]   ---   STILL  IMAGE  PROMPT  (generate  first,  use  as  first  frame)   2D  semi-realistic  cartoon  illustration,  bold  clean  outlines,  smooth  flat  cel  shading,  [#BGD  
+environment],
+ 
+[characters
+ 
+by
+ 
+their
+ 
+locked
+ 
+look
+ 
++
+ 
+position
+ 
++
+ 
+expression],
+ 
+[camera
+ 
+angle],
+ 
+[lighting],
+ 
+flat
+ 
+2D
+ 
+vector
+ 
+art,
+ 
+no
+ 
+text,
+ 
+no
+ 
+watermark,
+ 
+--ar
+ 
+16:9.
+  ---   ##  ANIMATION  +  AUDIO  PROMPT  *(paste  into  Omni  with  the  still  as  first  frame)*   ###  SYSTEM  &  ENVIRONMENT   **CLIP  LENGTH:**  [6/7/8  seconds]   **STYLE  ANCHOR:**    2D  semi-realistic  cartoon  illustration,  bold  clean  outlines,  smooth  flat  cel  shading.  Maintain  
+100%
+ 
+flat
+ 
+2D
+ 
+vector
+ 
+art
+ 
+aesthetics.
+  **ACTIVE  ENVIRONMENT:**  [#BGD-XX-NAME]    
+**ACTIVE  CHARACTERS:**  [@CHAR  tags]   ---   ###  VISUAL  ACTION  &  CAMERA   **SCENE  ACTION:**  [what  happens,  using  the  tags]   **PHYSICS/EFFECTS:**  [flicker,  fog,  hair,  fire]   ---   ###  LIP-SYNC  CONTROL  &  AUDIO   **[LIP-SYNC  LOCK]:**    Only  [@speaker]'s  mouth  animates  to  the  dialogue.  All  other  characters  ([@silent  tags])  keep  
+mouths
+ 
+completely
+ 
+closed,
+ 
+still
+ 
+and
+ 
+static
+ 
+for
+ 
+the
+ 
+entire
+ 
+clip.
+  **AUDIO  PROTOCOL:**  Native  Indian  voice  synthesis  only.   **SPEAKER  IDENTITY:**    [age  +  gender  +  emotion,  e.g.  27-yr  female,  trembling  whisper].   **LINGUISTIC  CONSTRAINT:**    
+100%
+ 
+native
+ 
+Indian
+ 
+accent
+ 
+(
+शुद्ध
+ 
+उत्तर
+ 
+भारतीय
+ 
+लहजा
+ 
+/
+ 
+क्षेत्र
+:
+ 
+उत्तर
+ 
+प्रदेश
+-
+ बहार
+).
+ 
+Absolute
+ 
+prohibition
+ 
+on
+ 
+Western/English/British/American
+ 
+accent
+ 
+cadence.
+  **DIALOGUE  (DEVANAGARI  ONLY):**    "[exact  Hindi  line  from  Step  2]"   **SOUND  DESIGN:**    [ambient  +  SFX;  state  if  narrator  VO  is  layered  later].   ---   ###  NEGATIVE  RESTRICTIONS   -  NO  photorealism  -  NO  3D  rendering  -  NO  CGI  shading  -  NO  realistic  skin/hair  textures  -  NO  depth-of-field  that  breaks  the  2D  plane  -  NO  English-accent  inflection  -  NO  dual-character  lip-sync  
+-  NO  text  overlays  -  NO  watermarks   Generate  ALL  scenes  start  to  finish  in  order,  covering  every  line  of  the  script.  Do  not  stop  
+midway.
+  WORKED  EXAMPLES  —  copy  the  exact  shape   Two  real  scenes  in  the  required  format:  one  with  dialogue  +  lip-sync  lock,  one  narrator-only  
+beat.
+  ##  Example  A  —  Dialogue  scene  with  lip-sync  lock   ###  SCENE  14  —  Meera  Ki  Pukaar   **TIMESTAMP:**  03:12  –  03:18  (6  sec)   **ASSETS:**  #BGD-01-HAVELI-BEDROOM  +  @CHAR-01-MEERA,  @CHAR-02-ROHAN   **SPEAKER:**  @CHAR-01-MEERA   **STILL  IMAGE  PROMPT:**   2D  semi-realistic  cartoon  illustration,  bold  clean  outlines,  smooth  flat  cel  shading,  
+#BGD-01-HAVELI-BEDROOM
+ 
+environment,
+ 
+@CHAR-01-MEERA
+ 
+sitting
+ 
+up
+ 
+in
+ 
+bed
+ 
+leaning
+ 
+over
+ 
+@CHAR-02-ROHAN
+ 
+who
+ 
+sleeps
+ 
+facing
+ 
+away,
+ 
+her
+ 
+face
+ 
+tight
+ 
+with
+ 
+fear
+ 
+glancing
+ 
+toward
+ 
+a
+ 
+dark
+ 
+corner,
+ 
+medium
+ 
+shot,
+ 
+cold
+ 
+teal-blue
+ 
+night
+ 
+with
+ 
+a
+ 
+warm
+ 
+flickering
+ 
+bulb,
+ 
+flat
+ 
+2D
+ 
+vector
+ 
+art,
+ 
+no
+ 
+text,
+ 
+no
+ 
+watermark,
+ 
+--ar
+ 
+16:9.
+  ##  ANIMATION  +  AUDIO  PROMPT:   ###  SYSTEM  &  ENVIRONMENT   CLIP  LENGTH:  6  seconds   STYLE  ANCHOR:  2D  semi-realistic  cartoon  illustration,  bold  clean  outlines,  smooth  flat  cel  shading.  Maintain  
+100%
+ 
+flat
+ 
+2D
+ 
+vector
+ 
+art
+ 
+aesthetics.
+  ACTIVE  ENVIRONMENT:  #BGD-01-HAVELI-BEDROOM   ACTIVE  CHARACTERS:  @CHAR-01-MEERA,  @CHAR-02-ROHAN  
+ ###  VISUAL  ACTION  &  CAMERA   SCENE  ACTION:  Medium  shot.  @CHAR-01-MEERA  urgently  shakes  the  shoulder  of  @CHAR-02-ROHAN,  eyes  
+flicking
+ 
+to
+ 
+the
+ 
+dark
+ 
+corner.
+  PHYSICS/EFFECTS:  The  overhead  bulb  flickers  once.   ###  LIP-SYNC  CONTROL  &  AUDIO   [LIP-SYNC  LOCK]:  Only  @CHAR-01-MEERA's  mouth  animates.  @CHAR-02-ROHAN  is  deeply  asleep;  his  mouth  
+stays
+ 
+completely
+ 
+closed,
+ 
+still
+ 
+and
+ 
+static
+ 
+for
+ 
+all
+ 
+6
+ 
+seconds.
+  AUDIO  PROTOCOL:  Native  Indian  voice  synthesis  only.   SPEAKER  IDENTITY:  27-year-old  female,  frightened  trembling  whisper.   LINGUISTIC  CONSTRAINT:  
+100%
+ 
+native
+ 
+Indian
+ 
+accent
+ 
+(
+शुद्ध
+ 
+उत्तर
+ 
+भारतीय
+ 
+लहजा
+ 
+/
+ 
+उत्तर
+ 
+प्रदेश
+-
+ बहार
+).
+ 
+No
+ 
+Western/English
+ 
+accent.
+  DIALOGUE  (DEVANAGARI  ONLY):  
+"
+रोहन
+...
+ 
+रोहन
+ 
+उ ठए।
+ 
+कमरे
+ 
+में
+ 
+कोई
+ 
+है।
+ 
+मुझे
+ 
+डर
+ 
+लग
+ 
+रहा
+ 
+है।
+"
+  SOUND  DESIGN:  Faint  room-tone  ambient  only;  no  other  voices.   ###  NEGATIVE  RESTRICTIONS   -  NO  photorealism  -  NO  3D  -  NO  CGI  shading  -  NO  realistic  textures  -  NO  English-accent  inflection  -  NO  dual-character  lip-sync  -  NO  text  -  NO  watermarks   ##  Example  B  —  Narrator-only  beat  (no  character  lip-sync)  
+ ###  SCENE  17  —  Rooh  Kaanp  Uthi   **TIMESTAMP:**  03:40  –  03:48  (8  sec)   **ASSETS:**  #BGD-02-MIRROR-ROOM  +  @CHAR-01-MEERA,  @CHAR-03-CHUDAIL   **SPEAKER:**  NARRATOR  (layer  voiceover  in  editing)   ---   ##  STILL  IMAGE  PROMPT:   2D  semi-realistic  cartoon  illustration,  bold  clean  outlines,  smooth  flat  cel  shading,  
+#BGD-02-MIRROR-ROOM,
+ 
+fixed
+ 
+shot
+ 
+on
+ 
+an
+ 
+ornate
+ 
+full-length
+ 
+mirror
+ 
+reflecting
+ 
+@CHAR-01-MEERA
+ 
+frozen
+ 
+in
+ 
+terror,
+ 
+the
+ 
+spectral
+ 
+bride
+ 
+@CHAR-03-CHUDAIL
+ 
+resolving
+ 
+out
+ 
+of
+ 
+the
+ 
+dark
+ 
+haze
+ 
+behind
+ 
+her
+ 
+reflection
+ 
+with
+ 
+glowing
+ 
+red
+ 
+eyes,
+ 
+high-contrast
+ 
+eerie
+ 
+under-lighting,
+ 
+flat
+ 
+2D
+ 
+vector
+ 
+art,
+ 
+no
+ 
+text,
+ 
+no
+ 
+watermark,
+ 
+--ar
+ 
+16:9.
+  ---   ##  ANIMATION  +  AUDIO  PROMPT:   ###  SYSTEM  &  ENVIRONMENT   **CLIP  LENGTH:**  8  seconds   **STYLE  ANCHOR:**  2D  semi-realistic  cartoon  illustration,  bold  clean  outlines,  smooth  flat  cel  shading,  high-contrast  
+2D
+ 
+with
+ 
+eerie
+ 
+under-lighting.
+ 
+Maintain
+ 
+100%
+ 
+flat
+ 
+2D
+ 
+vector
+ 
+art.
+  **ACTIVE  ENVIRONMENT:**  #BGD-02-MIRROR-ROOM   **ACTIVE  CHARACTERS:**  @CHAR-01-MEERA,  @CHAR-03-CHUDAIL   ---   ###  VISUAL  ACTION  &  CAMERA   **SCENE  ACTION:**  Fixed  camera  on  the  mirror.  The  spectral  bride  slowly  resolves  behind  Meera's  reflection,  red  
+eyes
+ 
+igniting;
+ 
+Meera's
+ 
+shoulders
+ 
+jerk.
+  **PHYSICS/EFFECTS:**  
+Bulb  flickers  violently;  the  space  outside  the  mirror  stays  empty.   ---   ###  LIP-SYNC  CONTROL  &  AUDIO   **[LIP-SYNC  LOCK]:**  No  character  speaks.  All  mouths  closed  and  static.  Output  background  audio  only.   **AUDIO  PROTOCOL:**  No  voice  synthesis.   **SOUND  DESIGN:**  
+Sudden
+ 
+sharp
+ 
+violin
+ 
+sting
+ 
+then
+ 
+a
+ 
+low
+ 
+spectral
+ 
+whisper-hiss.
+ 
+*(Narrator
+ 
+VO
+ 
+"
+और
+ 
+उसकी
+ 
+रूह
+ 
+काँप
+ 
+उठी
+..."
+ 
+layered
+ 
+in
+ 
+editing.)*
+  ---   ###  NEGATIVE  RESTRICTIONS   -  NO  photorealism  -  NO  3D  -  NO  CGI  shading  -  NO  realistic  textures  -  NO  character  lip-sync  -  NO  text  -  NO  watermarks   
+7-  UPLOADING  
+STEP  4  —  COPY  THIS  PROMPT:  
+The  script  is  complete.  Generate  the  full  publishing  package.  Deliver  in  this  exact  order:  
+ 
+=====  PART  1  —  VIDEO  TITLES  (10  options)  =====  
+Write  10  titles  (English  +  Hindi  transliteration  as  used  by  top  Hindi  horror  channels).  Each  under  
+100
+ 
+characters
+.
+ 
+Mix
+ 
+these
+ 
+proven
+ 
+formulas:
+ 
+●  [Monster  Name]  |  Hindi  Horror  Story  |  [Channel]  |  Animated  Stories  
+●  [Concept]  –  [chilling  subtitle]  |  Bhoot  Ki  Kahani  |  Sachchi  Horror  Story  ●  Numbered  serial:  [Name]  [N]  Horror  Story  |  ...  ●  Hook/shock  line:  'Jisne  Bhi  Pehli...  Uski  Maut  Tay'  style  ●  Add  'Sachchi  Ghatna  par  aadharit'  authenticity  tag  where  appropriate.  ●  Number  them  1–10 .  
+ 
+=====  PART  2  —  SEO  VIDEO  DESCRIPTION  =====  
+English,  SEO-optimised:  
+●  Opening  hook  (2–3  lines)  shown  before  "Show  More"  ●  Para  1:  What  this  video  is  about  (100–150  words)  ●  Para  2:  5–8  bullet  topic  points  ●  Para  3:  Channel  description  +  Subscribe  CTA  ●  8–10  timestamps  (00:00  —  Chapter  Name)  ●  Footer  line:  
+"This
+ 
+is
+ 
+a
+ 
+fictional
+ 
+horror
+ 
+story
+ 
+created
+ 
+for
+ 
+entertainment."
+ ●  Minimum  350  words  
+ 
+=====  PART  3  —  HASHTAGS  =====  
+Write  12–15  English  hashtags .  
+Must  include:  
+●  #HindiHorrorStory  ●  #HorrorStory  ●  #AnimatedStories  ●  #BhootKiKahani  ●  #ScaryStories  
+Plus  topic-specific  hashtags.  
+One  hashtag  per  line.  
+ 
+=====  PART  4  —  VIDEO  TAGS  (SEO)  =====  
+Write  comma-separated  YouTube  tags  within  YouTube's  500-character  limit .  
+Mix:  
+●  Exact-match  keywords  ●  Broad  keywords  ●  Monster-specific  keywords  ●  Format  keywords  ●  Channel  keywords  ●  English  +  transliterated  monster  names  
+ 
+=====  PART  5  —  THUMBNAIL  IMAGE  PROMPTS  (10  
+options)
+ 
+=====
+ 
+Write  10  single-paragraph  thumbnail  prompts ,  numbered  1–10 .  
+Each  prompt  should  have:  
+●  A  different  composition  ●  A  different  text  style  ●  A  different  colour  scheme  ●  Rotate  through  the  LAYOUTS  and  TEXT  STYLES  in  the  reference  below.  
+End  every  prompt  with:  
+--ar  16:9  
+THUMBNAIL  STYLE  REFERENCE  GUIDE  
+Derived  from  analysis  of  16  top-performing  Hindi  horror  thumbnails .  These  principles  apply  
+directly
+ 
+to
+ 
+your
+ 
+thumbnail
+ 
+prompts
+ 
+in
+ 
+Step
+ 
+4,
+ 
+Part
+ 
+5
+.
+ 
+Element  What  Works  In  This  Niche  
+Dominant  Style  
+2D  semi-realistic  cartoon  —  bold  outlines,  smooth  shading,  dramatic  rim  light.  High  detail  on  the  central  figure;  cinematic  poster  feel.  
+Colour  Energy  
+Teal-blue  moonlit  night  base  is  default.  Fiery  orange-red  for  demonic/hell  themes.  Purple-magenta  glow  for  cursed  objects  &  magic.  High  saturation,  dark  vignette.  
+Composition  Most-used:  terrified  human  in  foreground  +  supernatural  entity  looming  behind .  Also:  single  menacing  entity  close-up;  ghost  grabbing  victim;  tantrik  +  two  victims  ritual;  coffin/taboot  procession;  emotional  split.  
+Expression  Rule  
+Victims:  terror,  sweat,  wide  eyes,  open-mouth  scream.  Entities:  menacing  grin,  glowing  white/red  eyes.  Calm  only  as  dramatic  irony  (victim  unaware).  
+Text  Style  Most-used:  red  brushstroke  ALL-CAPS  first  word  +  white  "HORROR  STORY"  subtitle  (English  transliteration).  Also:  Devanagari  red  brush  title;  big  bottom-centred  title;  numbered  sequel.  
+Recurring  Motifs  
+Lanterns/diyas,  glowing  magic  circles  with  script,  white/red  glowing  eyes,  saree-clad  chudail  (green/pale  skin),  coffins,  graveyards,  foggy  forests,  sweating  faces.  
+10  THUMBNAIL  LAYOUTS  —  Rotate  
+Through
+ 
+All
+ 
+10,
+ 
+Never
+ 
+Repeat
+ 
+●  Layout  1  —  VICTIM  +  ENTITY  BEHIND:  Terrified  human  in  the  foreground  (60–65%  of  
+image
+ 
+height),
+ 
+supernatural
+ 
+entity
+ 
+looming
+ 
+behind.
+ 
+Title
+ 
+placed
+ 
+top-right
+ 
+or
+ 
+bottom
+.
+ 
+The
+ 
+single
+ 
+most-used
+ 
+niche
+ 
+layout.
+ ●  Layout  2  —  SINGLE  ENTITY  CLOSE-UP:  One  menacing  chudail/pret/demon  face  
+filling
+ 
+70–80%
+ 
+of
+ 
+the
+ 
+frame,
+ 
+glowing
+ 
+eyes,
+ 
+atmospheric
+ 
+background
+ 
+barely
+ 
+visible.
+ 
+Title
+ 
+at
+ 
+the
+ 
+bottom
+ 
+or
+ 
+right
+.
+ ●  Layout  3  —  GHOST  GRABS  VICTIM:  Entity  clutching/embracing  a  screaming  victim  
+from
+ 
+behind,
+ 
+both
+ 
+faces
+ 
+visible.
+ 
+Forest
+ 
+or
+ 
+indoor
+ 
+night
+ 
+background.
+ 
+Title
+ 
+top-right
+.
+ ●  Layout  4  —  TANTRIK  RITUAL  TRIO:  Tantrik/witch  in  the  centre  with  magic  strings  or  
+fire,
+ 
+two
+ 
+terrified
+ 
+victims
+ 
+flanking
+ 
+them,
+ 
+glowing
+ 
+magic
+ 
+circle
+ 
++
+ 
+diya.
+ 
+Title
+ 
+bottom-centre
+.
+ ●  Layout  5  —  SCREAMING  VICTIM  MID-ACTION:  Gory/possessed  victim  filling  the  
+frame,
+ 
+blood
+ 
+scratches,
+ 
+subway/forest/room
+ 
+setting.
+ 
+Brushstroke
+ 
+title
+ 
+top-left
+.
+ ●  Layout  6  —  COFFIN  /  TABOOT  PROCESSION:  Hooded  red  demons  carrying  a  
+glowing
+ 
+coffin
+ 
+with
+ 
+a
+ 
+fleeing
+ 
+victim
+ 
+at
+ 
+the
+ 
+side,
+ 
+graveyard
+ 
+setting.
+ 
+Title
+ 
+top-right
+.
+ 
+(Best
+ 
+for
+ 
+serials.)
+ ●  Layout  7  —  EMOTIONAL  /  CURSED  LOVE  SPLIT:  Human  on  one  side  and  spirit  on  
+the
+ 
+other
+ 
+reaching
+ 
+toward
+ 
+each
+ 
+other,
+ 
+warm
+ 
+vs
+ 
+cool
+ 
+color
+ 
+split,
+ 
+multi-line
+ 
+Hindi
+ 
+tagline.
+ ●  Layout  8  —  GROUP  DREAD:  Multiple  repeated  faceless/veiled  figures  (e.g.,  banjaran),  
+candle/lantern
+ 
+lighting,
+ 
+title
+ 
+on
+ 
+the
+ 
+left
+ 
+in
+ 
+Devanagari
+.
+ ●  Layout  9  —  SKULL  +  ENTITY  +  GRAVE:  Fiery  orange  color  palette,  tombstone  with  
+carved
+ 
+name/dates,
+ 
+hellish
+ 
+glow,
+ 
+chudail
+ 
+rising
+ 
+behind,
+ 
+large
+ 
+Devanagari
+ 
+title.
+ 
+●  Layout  10  —  LANTERN  ENVIRONMENT  +  LONE  FIGURE:  Single  ghost  or  victim  
+holding
+ 
+a
+ 
+lantern
+ 
+in
+ 
+a
+ 
+well,
+ 
+graveyard,
+ 
+or
+ 
+forest
+ 
+with
+ 
+heavy
+ 
+fog.
+ 
+Transliteration
+ 
+title
+ 
+at
+ 
+the
+ 
+bottom
+.
+ 
+ 
+TEXT  STYLES  —  Assign  One  Per  Prompt,  
+Never
+ 
+Repeat
+ 
+●  Style  A  —  RED  BRUSH  +  WHITE  SUBTITLE:  First  word  in  red  horror  brushstroke  
+ALL
+ 
+CAPS
+,
+ 
+"HORROR
+ 
+STORY"
+ 
+in
+ 
+white
+ 
+below.
+ 
+(Default
+ 
+niche
+ 
+style.)
+ ●  Style  B  —  DEVANAGARI  RED  BRUSH:  Hindi  title  in  dripping  red  brush  font  with  a  
+small
+ 
+white
+ 
+tagline
+ 
+below.
+ ●  Style  C  —  BIG  BOTTOM  TITLE:  Large  transliterated  title  spanning  the  lower  third  in  red  
+brush
+ 
+lettering.
+ ●  Style  D  —  NUMBERED  SEQUEL:  Title  with  a  large  red  or  white  sequel  number  beside  
+it
+ 
+(e.g.,
+ 
+2
+,
+ 
+3
+).
+ ●  Style  E  —  WHITE  CAPS  +  RED  ACCENT:  White  all-caps  headline  with  1–2  important  
+words
+ 
+highlighted
+ 
+in
+ 
+red.
+ ●  Style  F  —  MULTI-LINE  TAGLINE:  Main  title  plus  2–3  lines  of  emotional  Hindi  tagline  
+(ideal
+ 
+for
+ 
+cursed-love
+ 
+themes).
+ ●  Style  G  —  GOLD  /  CARVED  ON  STONE:  Character  name  carved  into  a  tombstone  with  
+the
+ 
+Devanagari
+ 
+title
+ 
+in
+ 
+red.
+ ●  Style  H  —  GLOW  CAPS:  Title  in  glowing  red/orange  capital  letters  matching  fire  or  
+magic-circle
+ 
+lighting.
+ 
+TEXT  STYLES  —  Assign  One  Per  Prompt,  
+Never
+ 
+Repeat
+ 
+●  Style  A  —  RED  BRUSH  +  WHITE  SUBTITLE:  First  word  in  red  horror  brushstroke  
+ALL-CAPS
+,
+ 
+"HORROR
+ 
+STORY"
+ 
+in
+ 
+white
+ 
+below.
+ 
+The
+ 
+niche
+ 
+default.
+ ●  Style  B  —  DEVANAGARI  RED  BRUSH:  Hindi  title  in  dripping  red  brush  font,  small  
+white
+ 
+tagline
+ 
+below.
+ ●  Style  C  —  BIG  BOTTOM  TITLE:  Large  transliteration  title  spanning  the  lower  third,  red  
+brush.
+ ●  Style  D  —  NUMBERED  SEQUEL:  Title  +  large  red  or  white  number  beside  it  (e.g.,  "2",  
+"3")
+.
+ ●  Style  E  —  WHITE  CAPS  +  RED  ACCENT:  White  all-caps  headline,  1–2  key  words  in  
+red.
+ 
+●  Style  F  —  MULTI-LINE  TAGLINE:  Title  +  2–3  lines  of  emotional  Hindi  tagline  
+(cursed-love
+ 
+style)
+.
+ ●  Style  G  —  GOLD/CARVED  ON  STONE:  Name  carved  on  tombstone  +  Devanagari  title  
+in
+ 
+red.
+ ●  Style  H  —  GLOW  CAPS:  Title  in  glowing  red/orange  caps  matching  fire  or  magic-circle  
+light.
+ 
+ 
+MANDATORY  IN  EVERY  THUMBNAIL  
+PROMPT
+ 
+●  Central  figure  fills  60–80%  of  frame  in  portrait  compositions.  ●  Expressions:  ○  Victims:  terror.  ○  Entities:  menace  +  glowing  eyes.  ○  Calm  expressions  only  as  dramatic  irony .  ●  2D  semi-realistic  cartoon  style  —  bold  outlines,  smooth  shading,  NOT  photorealistic .  ●  Dark  edge  vignette  +  high-contrast  cinematic  look;  no  watermark  in  the  generated  
+image.
+ 
+ 
+End  Every  Thumbnail  Prompt  With:  
+"2D  semi-realistic  cartoon  horror  thumbnail,  cinematic  poster  composition,  
+bold
+ 
+outlines,
+ 
+dramatic
+ 
+rim
+ 
+lighting,
+ 
+high
+ 
+saturation,
+ 
+dark
+ 
+vignette,
+ 
+no
+ 
+watermark.
+ 
+--ar
+ 
+16:9"
+ 
+   

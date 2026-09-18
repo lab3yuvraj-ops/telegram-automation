@@ -1,0 +1,10 @@
+data/
+.env
+.git/
+.venv/
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+tests/
+docs/course-transcript.md
+*.log
