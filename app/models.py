@@ -6,7 +6,7 @@ class Request(BaseModel):
     language: Literal['Hindi', 'Hinglish', 'English'] = 'Hindi'
     aspect: Literal['16:9'] = '16:9'
     mode: Literal['demo', 'live'] = 'live'
-    audio_mode: Literal['local', 'studio', 'native'] = 'local'
+    audio_mode: Literal['elevenlabs', 'local', 'studio', 'native'] = 'elevenlabs'
     @model_validator(mode='after')
     def clean(self):
         self.title = self.title.strip()

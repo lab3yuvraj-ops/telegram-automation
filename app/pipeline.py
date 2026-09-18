@@ -7,6 +7,7 @@ from .planning import plan, demo_plan, publishing
 from . import production
 from . import speechify_tts
 from . import local_tts
+from . import elevenlabs_tts
 
 pool=ThreadPoolExecutor(max_workers=1,thread_name_prefix='render')
 active=set(); lock=Lock()
@@ -80,10 +81,11 @@ def work(ident,lease=None):
         for i,(line,scene) in enumerate(zip(p['story']['lines'],p['scenes']['scenes'],strict=True)):
             n=i+1; progress(f'Scene {n}/{len(p["scenes"]["scenes"])}: {scene["title"]}',45+i*5)
             still=folder/f'scene-{n:02d}.png'; video=folder/f'raw-{n:02d}.mp4'
-            speech=folder/f'speech-{n:02d}.wav'; fitted=folder/f'voice-{n:02d}.wav'; clip=folder/f'clip-{n:02d}.mp4'
+            elevenlabs=not demo and request.get('audio_mode')=='elevenlabs'
+            speech=folder/f'speech-{n:02d}.mp3' if elevenlabs else folder/f'speech-{n:02d}.wav'; fitted=folder/f'voice-{n:02d}.wav'; clip=folder/f'clip-{n:02d}.mp4'
             local=not demo and request.get('audio_mode')=='local'
             studio=not demo and request.get('audio_mode')=='studio' and speechify_tts.available()
-            layered=local or studio
+            layered=elevenlabs or local or studio
             native=not demo and not layered
             location=next(b for b in p['locations']['backgrounds'] if b['tag']==scene['background_tag'])
             packet=production.packet(request,line,scene,p['cast'],location,n)
@@ -105,7 +107,10 @@ def work(ident,lease=None):
                 if not video.exists():media.make_demo_video(still,video)
             else:
                 video,_=production.verified_video(provider,folder,n,still,[(tag,assets[tag]) for tag in scene['character_tags']],packet,request['aspect'])
-                if local:
+                if elevenlabs:
+                    if not speech.exists():elevenlabs_tts.synthesize(line['text'],speech,check)
+                    if not fitted.exists():media.fit_speech(speech,fitted)
+                elif local:
                     if not speech.exists():local_tts.synthesize(line['text'],speech,check)
                     if not fitted.exists():media.fit_speech(speech,fitted)
                 elif studio:
@@ -120,7 +125,7 @@ def work(ident,lease=None):
         (folder/'captions.srt').write_text('\n'.join(subtitles),encoding='utf-8')
         progress('Mixing music and rendering locked six-act master',88)
         report=media.finish(folder,clips,[s['sound'] for s in p['scenes']['scenes']],scene_seconds=7.5)
-        report.update({'demo':demo,'narration':'silent test track' if demo else ('Local Hindi narration' if request.get('audio_mode')=='local' else ('Speechify Hindi studio audio' if request.get('audio_mode')=='studio' and speechify_tts.available() else 'Pruna native scene audio')),'character_consistency':'Canonical references are supplied to scene composition; no external frame-by-frame review is performed','subtitles':'Scene-level SRT','speech_verification':'Not performed'})
+        report.update({'demo':demo,'narration':'silent test track' if demo else ('ElevenLabs Hindi narration' if request.get('audio_mode')=='elevenlabs' else ('Local Hindi narration' if request.get('audio_mode')=='local' else ('Speechify Hindi studio audio' if request.get('audio_mode')=='studio' and speechify_tts.available() else 'Pruna native scene audio'))),'character_consistency':'Canonical references are supplied to scene composition; no external frame-by-frame review is performed','subtitles':'Scene-level SRT','speech_verification':'Not performed'})
         store.save(folder/'quality-report.json',report)
         progress('Creating thumbnail and publishing package',95)
         if not demo:
@@ -135,14 +140,14 @@ def work(ident,lease=None):
                 media.thumbnail(artwork,thumb,request['title'])
         with zipfile.ZipFile(folder/'production-kit.zip','w',zipfile.ZIP_DEFLATED) as z:
             for path in folder.iterdir():
-                if path.suffix in {'.json','.png','.srt','.wav','.mp4'} and '.operation.' not in path.name and not path.name.startswith(('clip-','raw-')) and path.name!='joined.mp4': z.write(path,path.name)
+                if path.suffix in {'.json','.png','.srt','.wav','.mp3','.mp4'} and '.operation.' not in path.name and not path.name.startswith(('clip-','raw-')) and path.name!='joined.mp4': z.write(path,path.name)
         progress('Complete',100); store.update(ident,status='complete')
     except Cancelled:
         if not lease or store.get(ident)['worker']==lease[0]:store.update(ident,status='cancelled',stage='Stopped; saved assets can be resumed')
     except Exception as exc:
         # Never persist SDK request dumps or API credentials.
         message=str(exc)
-        for secret in (os.getenv('REPLICATE_API_TOKEN'),os.getenv('GROQ_API_KEY'),os.getenv('HF_TOKEN'),os.getenv('CLOUDFLARE_API_TOKEN')):
+        for secret in (os.getenv('REPLICATE_API_TOKEN'),os.getenv('OPENAI_API_KEY'),os.getenv('ELEVENLABS_API_KEY'),os.getenv('GROQ_API_KEY'),os.getenv('HF_TOKEN'),os.getenv('CLOUDFLARE_API_TOKEN')):
             if secret: message=message.replace(secret,'[redacted]')
         store.update(ident,status='failed',stage='Needs attention',error=message[:2400])
     finally:
@@ -187,7 +192,7 @@ def archive_scene(ident,number):
             if review.exists() and store.read(review).get('correction'):
                 corrections[str(number)]=store.read(review)['correction']
         store.save(correction_path,corrections)
-        names=[f'{prefix}-{number:02d}.{ext}' for prefix,ext in [('scene','png'),('raw','mp4'),('raw','operation.json'),('speech','wav'),('voice','wav'),('clip','mp4'),('review-still','json'),('review-motion','json'),('check','png')]]
+        names=[f'{prefix}-{number:02d}.{ext}' for prefix,ext in [('scene','png'),('raw','mp4'),('raw','operation.json'),('speech','wav'),('speech','mp3'),('voice','wav'),('clip','mp4'),('review-still','json'),('review-motion','json'),('check','png')]]
         names+=['final.mp4','production-kit.zip','quality-report.json','joined.mp4']
         names += [f'check-{number:02d}-{i}.png' for i in range(4)]
         import re

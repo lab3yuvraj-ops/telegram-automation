@@ -1,13 +1,13 @@
 import copy
 import json
 import pytest
-from app import production, media, pipeline, store, auth, local_tts
+from app import production, media, pipeline, store, auth, local_tts, elevenlabs_tts
 from app.models import Request, validate_links
 from app.planning import demo_plan
 
 def test_title_only_defaults():
     request=Request(title='The locked door')
-    assert request.mode=='live' and request.audio_mode=='local'
+    assert request.mode=='live' and request.audio_mode=='elevenlabs'
 
 def test_angle_selection_and_audio_modes():
     p=demo_plan({'title':'test'})
@@ -84,6 +84,7 @@ def test_live_orchestration_with_fake_provider(tmp_path,monkeypatch):
     monkeypatch.setattr(media,'thumbnail',lambda source,target,title:target.write_bytes(b'thumbnail'))
     monkeypatch.setattr(media,'finish',lambda folder,*args,**kwargs:((folder/'final.mp4').write_bytes(b'final') and {'duration_seconds':45}))
     monkeypatch.setattr(local_tts,'synthesize',lambda text,target,check:target.write_bytes(b'local-hindi-audio'))
+    monkeypatch.setattr(elevenlabs_tts,'synthesize',lambda text,target,check:target.write_bytes(b'elevenlabs-hindi-audio'))
     store.init()
     p=demo_plan({'title':'The door'})
     expected=[l['text'] for l in p['story']['lines']]
@@ -102,7 +103,7 @@ def test_live_orchestration_with_fake_provider(tmp_path,monkeypatch):
     folder=store.folder(ident)
     assert (folder/'production-kit.zip').exists()
     assert len(list(folder.glob('packet-*.json')))==6
-    assert len(list(folder.glob('speech-??.wav')))==6
+    assert len(list(folder.glob('speech-??.mp3')))==6
     assert len(list(folder.glob('review-audio-??.json')))==0
     assert store.read(folder/'manifest.json')['models']=={
         'image':'google/nano-banana','image_edit':'google/nano-banana','video':'prunaai/p-video-2',

@@ -7,7 +7,7 @@ def main():
     p=argparse.ArgumentParser(description='Nightfall: title to 60-second horror video')
     p.add_argument('--title');p.add_argument('--mode',choices=['demo','live'],default='demo')
     p.add_argument('--language',choices=['Hindi','Hinglish','English'],default='Hindi')
-    p.add_argument('--audio-mode',choices=['local','studio','native'],default='local')
+    p.add_argument('--audio-mode',choices=['elevenlabs','local','studio','native'],default='elevenlabs')
     args=p.parse_args()
     if args.title:
         from app import store, pipeline, auth

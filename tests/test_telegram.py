@@ -35,7 +35,7 @@ def test_title_routes_once_and_preserves_chat_owner(service):
     service.handle(update());service.handle(update())
     jobs=store.all_jobs();assert len(jobs)==1 and jobs[0]['owner']=='tg_900_101'
     assert jobs[0]['request']['title']=='Haunted road'
-    assert jobs[0]['request']['audio_mode']=='local'
+    assert jobs[0]['request']['audio_mode']=='elevenlabs'
     service.notify();service.notify()
     assert len(service.api.calls)==1
 

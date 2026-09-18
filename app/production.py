@@ -9,7 +9,7 @@ def packet(request, line, scene, cast, location, number=1):
     speaker=next((c for c in cast['characters'] if c['name']==line['speaker']),None)
     # Both local and hosted narration are mixed after rendering; the video model
     # must not create a competing voice or lip movement for either path.
-    studio=request.get('audio_mode') in ('studio','local')
+    studio=request.get('audio_mode') in ('studio','local','elevenlabs')
     native=speaker is not None and not studio
     performance=(speaker['performance'] if speaker else 'Low cinematic narrator, native Indian accent, clear natural diction')
     active=', '.join(scene['character_tags']) if scene['character_tags'] else 'none'

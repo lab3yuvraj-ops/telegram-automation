@@ -11,7 +11,7 @@ Telegram is the entire user interface. The dashboard, signup, login, browser API
 3. Keep your existing `.env`, encryption key, Replicate token, and Groq key. For a fresh setup, start from `.env.example` and generate a Fernet key.
 4. Run `python run.py`. Use one local process. Send your title to the bot.
 
-Live generation requires a Replicate token with Nano Banana and Pruna P-Video-2 access and enabled billing, plus a Groq key for structured writing. Telegram defaults to `TELEGRAM_AUDIO_MODE=local`, which layers the Hindi narration after video generation. Set `TELEGRAM_PRODUCTION_MODE=demo` for a no-generation-cost assembly/delivery test.
+Live generation requires a Replicate token with Nano Banana and Pruna P-Video-2 access, an OpenAI API key for structured writing, and an ElevenLabs API key plus voice ID for Hindi narration. Telegram defaults to `TELEGRAM_AUDIO_MODE=elevenlabs`, which layers narration after video generation. Set `TELEGRAM_PRODUCTION_MODE=demo` for a no-generation-cost assembly/delivery test.
 
 ## Railway
 
