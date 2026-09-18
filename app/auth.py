@@ -5,6 +5,7 @@ from . import store
 
 COOKIE='nightfall_session'
 SESSION_SECONDS=43200
+_ephemeral_key=None
 
 def password_hash(password):
     salt=secrets.token_bytes(16)
@@ -19,8 +20,14 @@ def password_matches(password,encoded):
     except (ValueError,TypeError): return False
 
 def cipher():
+    global _ephemeral_key
     secret=os.getenv('APP_ENCRYPTION_KEY')
-    if not secret: raise RuntimeError('APP_ENCRYPTION_KEY must be configured')
+    if not secret:
+        # Telegram production does not persist per-user provider keys.  A fresh
+        # process key keeps the legacy encrypted-key tables usable for a simple
+        # local deployment without making a secret mandatory.
+        if _ephemeral_key is None:_ephemeral_key=Fernet.generate_key()
+        secret=_ephemeral_key.decode()
     return Fernet(secret.encode())
 
 def init():

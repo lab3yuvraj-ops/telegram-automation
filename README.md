@@ -8,7 +8,7 @@ Telegram is the entire user interface. The dashboard, signup, login, browser API
 
 1. Install Python dependencies with `pip install -r requirements.txt`; install FFmpeg and FFprobe.
 2. Fill `TELEGRAM_BOT_TOKEN` in `.env.telegram`, and set `TELEGRAM_ALLOWED_USER_IDS` to the approved private-chat IDs. A blank token leaves Telegram disabled. Groups are ignored.
-3. Keep your existing `.env`, encryption key and Replicate token. For a fresh setup, start from `.env.example` and generate a Fernet key. Set `OPENAI_API_KEY` for writing and `ELEVENLABS_API_KEY` plus `ELEVENLABS_VOICE_ID` for Hindi narration.
+3. Keep your existing `.env` and Replicate token. For a fresh setup, start from `.env.example`. Set `OPENAI_API_KEY` for writing and `ELEVENLABS_API_KEY` for Hindi narration; the template includes a default ElevenLabs voice ID that can be replaced later. `APP_ENCRYPTION_KEY` is optional for the Telegram-only service.
 4. Run `python run.py`. Use one local process. Send your title to the bot.
 
 Live generation requires a Replicate token with Nano Banana and Pruna P-Video-2 access, an OpenAI API key for structured writing, and an ElevenLabs API key plus voice ID for Hindi narration. Telegram defaults to `TELEGRAM_AUDIO_MODE=elevenlabs`, which layers narration after video generation. Set `TELEGRAM_PRODUCTION_MODE=demo` for a no-generation-cost assembly/delivery test.
@@ -16,6 +16,8 @@ Live generation requires a Replicate token with Nano Banana and Pruna P-Video-2 
 ## Railway
 
 The Telegram service runs `python run.py` with one replica and health endpoint `/healthz`. Existing worker services run `python -m app.worker`; PostgreSQL and private S3 storage are shared. Add the same media, OpenAI and ElevenLabs variables to every service that can run a worker. Set Telegram variables only on the Telegram service. Worker model, encryption and storage variables remain unchanged.
+
+`DATABASE_URL` is optional for local single-process use: the app then stores state in `data/studio.db`. Keep Railway Postgres for a production deployment because it preserves jobs through restarts and coordinates the Telegram service with workers. S3 variables are optional; without `S3_BUCKET`, artifacts remain on local disk. `APP_ENCRYPTION_KEY` is also optional for this Telegram-only flow. When absent, the app creates a process-local key, so previously encrypted per-user credentials cannot be recovered after restart.
 
 ## Optional YouTube publishing through Zernio
 
