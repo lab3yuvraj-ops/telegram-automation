@@ -6,12 +6,12 @@ No raw Telegram payloads, API keys, or Bot API URLs are logged or persisted.
 import hashlib,json,logging,os,re,secrets,tempfile,threading,time
 from pathlib import Path
 import httpx
-from . import auth,database,media,pipeline,storage,store
+from . import auth,database,media,pipeline,storage,store,zernio
 from .models import Request
 
 STATE='not_configured'
 
-HELP='Send a story title to create a six-act horror film. I will update a progress message and send the finished video here.\n\n/status — latest production\n/cancel — stop latest production\n/resume — continue saved work\n/scene 3 — regenerate scene 3 (paid in live mode)\n/video — send latest finished video again\n/script — script and publishing metadata\n/id — your chat ID\n/help — show commands'
+HELP='Send a story title to create a six-act horror film. I will update a progress message and send the finished video here.\n\n/status — latest production\n/cancel — stop latest production\n/resume — continue saved work\n/scene 3 — regenerate scene 3 (paid in live mode)\n/video — send latest finished video again\n/script — script and publishing metadata\n/approve — approve the finished video for YouTube\n/reject — reject the finished video\n/regenerate — choose a scene to regenerate\n/keep — keep a rejected video without regenerating\n/id — your chat ID\n/help — show commands'
 VIDEO_ONLY='This Telegram is only for generating video. Please give us your idea and we will create a video.'
 CASUAL_MESSAGES={
     'hi','hello','hey','hey there','hello there','hi there','how are you',
@@ -45,6 +45,7 @@ def init():
         if database.postgres():c.execute('SELECT pg_advisory_xact_lock(7128503)')
         c.execute('CREATE TABLE IF NOT EXISTS telegram_cursor (bot TEXT PRIMARY KEY, next_update BIGINT NOT NULL)')
         c.execute("CREATE TABLE IF NOT EXISTS telegram_jobs (job_id TEXT PRIMARY KEY, bot TEXT NOT NULL, chat_id TEXT NOT NULL, user_id TEXT NOT NULL, message_id BIGINT, last_text TEXT, notified DOUBLE PRECISION DEFAULT 0, delivery TEXT DEFAULT 'pending', video_message BIGINT)")
+        c.execute("CREATE TABLE IF NOT EXISTS telegram_reviews (job_id TEXT PRIMARY KEY, state TEXT NOT NULL DEFAULT 'awaiting_approval', prompt_message BIGINT, youtube_status TEXT NOT NULL DEFAULT 'not_requested', youtube_post_id TEXT, error TEXT)")
         c.execute('CREATE INDEX IF NOT EXISTS telegram_jobs_bot ON telegram_jobs(bot,delivery)')
 
 def allowed(user,chat):
@@ -65,6 +66,11 @@ def latest(bot,chat,complete=False):
     with store.db() as c:
         row=c.execute("SELECT j.id FROM jobs j JOIN telegram_jobs t ON t.job_id=j.id WHERE t.bot=? AND t.chat_id=? "+("AND j.status='complete' " if complete else '')+'ORDER BY j.created DESC LIMIT 1',(bot,str(chat))).fetchone()
     return store.get(row[0]) if row else None
+
+def review(job_id):
+    with store.db() as c:
+        row=c.execute('SELECT * FROM telegram_reviews WHERE job_id=?',(job_id,)).fetchone()
+    return dict(row) if row else None
 
 def status_text(job):
     text=f"{job['request']['title']}\n{job['progress']}% · {job['stage']}"
@@ -91,9 +97,27 @@ class Service:
         name=owner(self.bot,uid);ensure_user(name)
         if command=='/help':self.api.text(cid,HELP);return
         if command.startswith('/'):
-            job=latest(self.bot,cid,command=='/video')
-            if command not in ('/status','/cancel','/resume','/video','/script','/scene'):self.api.text(cid,HELP);return
+            job=latest(self.bot,cid,command in ('/video','/approve','/reject','/regenerate','/keep'))
+            if command not in ('/status','/cancel','/resume','/video','/script','/scene','/approve','/reject','/regenerate','/keep'):self.api.text(cid,HELP);return
             if not job:self.api.text(cid,'No matching production yet. Send a story title.');return
+            if command in ('/approve','/reject','/regenerate','/keep'):
+                if job['status']!='complete':self.api.text(cid,'The latest video is not ready for review yet.');return
+                current=review(job['id'])
+                if not current:self.api.text(cid,'This finished video has not been delivered for review yet.');return
+                if command=='/approve':
+                    if current['state']=='published':self.api.text(cid,'This video has already been published to YouTube.');return
+                    with store.db() as c:c.execute("UPDATE telegram_reviews SET state='approved',error=NULL WHERE job_id=?",(job['id'],))
+                    if not zernio.publishing_enabled():self.api.text(cid,'Approved. YouTube publishing is disabled, so nothing has been posted.');return
+                    self.publish_approved_video(job,cid);return
+                if command=='/reject':
+                    with store.db() as c:c.execute("UPDATE telegram_reviews SET state='rejected' WHERE job_id=?",(job['id'],))
+                    self.api.text(cid,'Not approved. Should I regenerate the video? Reply /regenerate to choose a scene, or /keep to keep this version.');return
+                if command=='/regenerate':
+                    if current['state']!='rejected':self.api.text(cid,'Reject the video first with /reject, then choose what to regenerate.');return
+                    self.api.text(cid,'Choose the scene to regenerate: /scene 1 through /scene 6. Live regeneration uses paid APIs.');return
+                if command=='/keep':
+                    with store.db() as c:c.execute("UPDATE telegram_reviews SET state='kept' WHERE job_id=?",(job['id'],))
+                    self.api.text(cid,'Kept this version. It will not be published unless you approve it later.');return
             if command=='/status':self.api.text(cid,status_text(job));return
             if command=='/scene':
                 number=text.partition(' ')[2].strip()
@@ -101,6 +125,7 @@ class Service:
                 try:pipeline.regenerate(job['id'],int(number))
                 except ValueError as exc:self.api.text(cid,str(exc));return
                 with store.db() as c:c.execute("UPDATE telegram_jobs SET delivery='pending',last_text=NULL WHERE job_id=?",(job['id'],))
+                with store.db() as c:c.execute("UPDATE telegram_reviews SET state='awaiting_approval',prompt_message=NULL,youtube_status='not_requested',youtube_post_id=NULL,error=NULL WHERE job_id=?",(job['id'],))
                 self.api.text(cid,'Scene regeneration queued. I will send the updated film when ready.');return
             if command=='/cancel':
                 with store.db() as c:c.execute("UPDATE jobs SET cancel=1,status=CASE WHEN status='queued' THEN 'cancelled' ELSE status END WHERE id=? AND status IN ('running','queued')",(job['id'],))
@@ -128,7 +153,7 @@ class Service:
         if not database.postgres() and store.get(ident)['status']=='queued':pipeline.enqueue(ident)
 
     def notify(self):
-        with store.db() as c:rows=[dict(r) for r in c.execute("SELECT t.* FROM telegram_jobs t JOIN jobs j ON j.id=t.job_id WHERE t.bot=? AND t.delivery NOT IN ('blocked') AND (t.delivery IN ('pending','sending') OR j.status IN ('running','queued')) ORDER BY t.notified LIMIT 100",(self.bot,))]
+        with store.db() as c:rows=[dict(r) for r in c.execute("SELECT t.* FROM telegram_jobs t JOIN jobs j ON j.id=t.job_id LEFT JOIN telegram_reviews r ON r.job_id=t.job_id WHERE t.bot=? AND t.delivery NOT IN ('blocked') AND (t.delivery IN ('pending','sending') OR j.status IN ('running','queued') OR (j.status='complete' AND t.delivery='sent' AND r.prompt_message IS NULL)) ORDER BY t.notified LIMIT 100",(self.bot,))]
         for row in rows:
             try:self.notify_one(row)
             except BotError as exc:
@@ -154,6 +179,7 @@ class Service:
             if not row['message_id']:row['message_id']=self.api.text(row['chat_id'],text)['message_id']
             with store.db() as c:c.execute('UPDATE telegram_jobs SET message_id=?,last_text=?,notified=? WHERE job_id=?',(row['message_id'],text,time.time(),job['id']))
         if job['status']=='complete' and row['delivery']=='pending':self.deliver(row,job)
+        elif job['status']=='complete' and row['delivery']=='sent':self.ask_for_review(row,job)
         elif job['status'] in ('failed','paused','cancelled'):
             with store.db() as c:c.execute("UPDATE telegram_jobs SET delivery='stopped' WHERE job_id=?",(job['id'],))
 
@@ -179,6 +205,35 @@ class Service:
                 with store.db() as c:c.execute('UPDATE telegram_jobs SET delivery=? WHERE job_id=?',('sending' if exc.uncertain else 'pending',job['id']))
                 raise
             with store.db() as c:c.execute("UPDATE telegram_jobs SET delivery='sent',video_message=? WHERE job_id=?",(result['message_id'],job['id']))
+            with store.db() as c:c.execute("INSERT INTO telegram_reviews(job_id) VALUES (?) ON CONFLICT(job_id) DO NOTHING",(job['id'],))
+            self.ask_for_review(row,job)
+
+    def ask_for_review(self,row,job):
+        current=review(job['id'])
+        if not current or current['prompt_message'] is not None:return
+        result=self.api.text(row['chat_id'],'Your video is ready for review. Is it approved for YouTube?\n\n/approve — approve for YouTube\n/reject — not approved')
+        with store.db() as c:c.execute('UPDATE telegram_reviews SET prompt_message=? WHERE job_id=?',(result['message_id'],job['id']))
+
+    def publish_approved_video(self,job,cid):
+        """The only route that can call Zernio's publishing endpoint."""
+        try:
+            with tempfile.TemporaryDirectory(prefix='nightfall-youtube-') as temp:
+                video=Path(temp)/'film.mp4'
+                if storage.enabled():
+                    with store.db() as c:record=c.execute("SELECT object_key FROM artifacts WHERE job_id=? AND name='final.mp4'",(job['id'],)).fetchone()
+                    if not record:raise RuntimeError('Final film is not available in storage')
+                    storage.client().download_file(os.environ['S3_BUCKET'],record[0],str(video))
+                else:
+                    import shutil
+                    shutil.copyfile(store.folder(job['id'])/'final.mp4',video)
+                result=zernio.publish_youtube(video,storage.read_json(job['id'],'publishing.json'),job['id'])
+            post=result.get('post',result)
+            post_id=post.get('_id',post.get('id',''))
+            with store.db() as c:c.execute("UPDATE telegram_reviews SET state='published',youtube_status='published',youtube_post_id=?,error=NULL WHERE job_id=?",(post_id,job['id']))
+            self.api.text(cid,'Approved and posted to YouTube.')
+        except (RuntimeError,zernio.ZernioError) as exc:
+            with store.db() as c:c.execute("UPDATE telegram_reviews SET youtube_status='failed',error=? WHERE job_id=?",(str(exc)[:500],job['id']))
+            self.api.text(cid,'The video was approved, but YouTube publishing did not complete. Nothing will be retried automatically.')
 
 def run(stop):
     global STATE
