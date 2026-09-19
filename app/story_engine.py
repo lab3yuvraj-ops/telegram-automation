@@ -87,6 +87,13 @@ Keep the strategy consistent but invent a new emotional need, rule, historical w
 
 def normalized(text):return ' '.join(re.findall(r'\w+',text.casefold()))
 def fingerprint(text):return hashlib.sha256(normalized(text).encode()).hexdigest()
+def canonical_story(value):
+    """Normalize the reserved narrator label before enforcing the script contract."""
+    story=Story.model_validate(value).model_dump()
+    for line in story['lines']:
+        if line['speaker'].strip().casefold()=='narrator':line['speaker']='NARRATOR'
+    return story
+
 def script_issues(story,history):
     lines=story['lines'];text=' '.join(l['text'] for l in lines);words=len(text.split());issues=[]
     if not 90<=words<=120:issues.append(f'Total spoken words {words}; require 90-120.')
@@ -126,7 +133,7 @@ def build(provider,folder,request,progress):
         draftpath=folder/f'script-draft-{attempt+1}.json';reviewpath=folder/f'script-review-{attempt+1}.json'
         prompt=context+'\nWrite exactly six spoken beats, one for each act, following the blueprint. Use exactly one NARRATOR beat and at least one, but no more than three, named adult character speakers. Every beat must contain 12-22 space-separated words and the total must contain 90-120 words. Before responding, count every beat and the total yourself. Preserve the act order and make every beat visually actionable.\n'
         if draft:prompt+='PREVIOUS DRAFT: '+json.dumps(draft,ensure_ascii=False)+'\nREVISE THESE FAILURES: '+feedback
-        draft=Story.model_validate(store.read(draftpath)).model_dump() if draftpath.exists() else provider.structured(prompt,Story)
+        draft=canonical_story(store.read(draftpath)) if draftpath.exists() else canonical_story(provider.structured(prompt,Story))
         if not draftpath.exists():store.save(draftpath,draft)
         issues,text,words=script_issues(draft,history)
         repaired=False
@@ -136,7 +143,7 @@ def build(provider,folder,request,progress):
             feedback='\n'.join(issues)
             repairpath=folder/f'script-repair-{attempt+1}.json'
             repair_prompt=prompt+'\nCURRENT INVALID DRAFT: '+json.dumps(draft,ensure_ascii=False)+'\nREPAIR ONLY THE STRUCTURAL FAILURES: '+feedback+' Return a complete replacement Story JSON.'
-            draft=Story.model_validate(store.read(repairpath)).model_dump() if repairpath.exists() else provider.structured(repair_prompt,Story)
+            draft=canonical_story(store.read(repairpath)) if repairpath.exists() else canonical_story(provider.structured(repair_prompt,Story))
             if not repairpath.exists():store.save(repairpath,draft)
             repaired=True
             issues,text,words=script_issues(draft,history)

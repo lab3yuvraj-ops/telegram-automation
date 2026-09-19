@@ -22,7 +22,7 @@ def test_resume_repairs_saved_invalid_script_before_review(tmp_path,monkeypatch)
             if schema is story_engine.Blueprint:return story_engine.Blueprint(authenticity_anchor='hotel',protagonist_need='safety',wrongness_signal='bell',isolation_lock='locked doors',entity_rule='answer no bells',historical_wound='abandoned guest',time_gap='twenty years',survival_by_wit_or_ritual='break the bell',grievance_named='betrayal',twist_recontextualizes='the exit',acts=[story_engine.Act(act=act,scenes=[i+1],action='action',audience_question='why',payoff_or_clue='clue') for i,act in enumerate(story_engine.ACTS)]).model_dump()
             if schema is Story:
                 self.story_calls+=1
-                return {'hook':'A hotel waits.','entity':'The bellman.','lines':[{'speaker':'NARRATOR' if i==0 else 'Meera','text':'one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen','emotion':'fear'} for i in range(6)]}
+                return {'hook':'A hotel waits.','entity':'The bellman.','lines':[{'speaker':'Narrator' if i==0 else 'Meera','text':'one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen','emotion':'fear'} for i in range(6)]}
             if schema is story_engine.Critique:return {'criteria':[{'name':name,'passed':True,'evidence':'ok','correction':''} for name in ('hook','rupture','escalation','rule','truth','climax','twist','dialogue','fiction','originality')]}
             raise AssertionError(schema)
     provider=Provider()
@@ -31,6 +31,7 @@ def test_resume_repairs_saved_invalid_script_before_review(tmp_path,monkeypatch)
     assert (folder/'script-repair-1.json').exists()
     assert (folder/'script-repair-1-review.json').exists()
     assert provider.story_calls==1
+    assert store.read(folder/'story.json')['lines'][0]['speaker']=='NARRATOR'
 
 def test_six_beats_and_landscape_only():
     p=demo_plan({'title':'The last ride'})
