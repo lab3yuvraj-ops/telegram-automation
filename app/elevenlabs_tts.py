@@ -25,19 +25,19 @@ def synthesize(text: str, target: Path, checkpoint):
     }
     if journal.exists():
         saved = store.read(journal)
-        if any(saved.get(key) != record[key] for key in ('voice_id', 'model', 'text_sha256')):
-            raise RuntimeError('Saved ElevenLabs inputs differ. Inspect the existing operation before changing it.')
-        if saved.get('done') and saved.get('status') != 'failed':
-            raise RuntimeError('Saved ElevenLabs audio is missing. Inspect the existing operation before regenerating it.')
         if saved.get('status') == 'failed':
             # A new /resume is explicit authorization to retry a known failed
             # request; retain the old record and keep the retry bounded.
             previous = int(saved.get('attempt', 1))
-            if previous >= int(os.getenv('ELEVENLABS_MAX_ATTEMPTS', '2')):
+            if previous >= int(os.getenv('ELEVENLABS_MAX_ATTEMPTS', '3')):
                 raise RuntimeError('ElevenLabs narration failed twice. Check the saved operation before another retry.')
             store.save(target.with_name(target.stem+f'-attempt-{previous}.operation.json'), saved)
             record['attempt'] = previous + 1
             store.save(journal, record)
+        elif any(saved.get(key) != record[key] for key in ('voice_id', 'model', 'text_sha256')):
+            raise RuntimeError('Saved ElevenLabs inputs differ. Inspect the existing operation before changing it.')
+        elif saved.get('done'):
+            raise RuntimeError('Saved ElevenLabs audio is missing. Inspect the existing operation before regenerating it.')
     else:
         store.save(journal, record)
     checkpoint()
