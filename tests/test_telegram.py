@@ -42,6 +42,13 @@ def test_casual_message_gets_video_only_reply_without_a_job(service):
     assert store.all_jobs()==[]
     assert service.api.calls[-1][1]['text']==tg.VIDEO_ONLY
 
+def test_ready_video_request_creates_a_real_production(service):
+    service.handle(update('Pick any topic and generate video'))
+    texts=[call[1].get('text','') for call in service.api.calls if call[0]=='sendMessage']
+    assert texts==["Okay, I'm going with this topic: The Last Bus That Never Reached Home.\n\nGenerating your script."]
+    jobs=store.all_jobs()
+    assert len(jobs)==1 and jobs[0]['request']['title']==tg.READY_VIDEO_TOPIC
+
 def test_allowed_private_chat_can_start_and_groups_are_ignored(service):
     service.handle(update(uid=303));service.handle(update(kind='group',ident=2))
     assert len(store.all_jobs())==1

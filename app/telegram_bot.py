@@ -18,6 +18,8 @@ CASUAL_MESSAGES={
     'hey how are you','hello how are you','good morning','good afternoon','good evening',
     'namaste','kaise ho','कैसे हो','नमस्ते','क्या हाल है',
 }
+READY_VIDEO_REQUEST='pick any topic and generate video'
+READY_VIDEO_TOPIC='The Last Bus That Never Reached Home'
 
 class BotError(Exception):
     def __init__(self,code=0,retry_after=10,uncertain=False):
@@ -72,8 +74,11 @@ def review(job_id):
         row=c.execute('SELECT * FROM telegram_reviews WHERE job_id=?',(job_id,)).fetchone()
     return dict(row) if row else None
 
-def status_text(job):
-    text=f"{job['request']['title']}\n{job['progress']}% · {job['stage']}"
+def status_text(job,detailed=False):
+    if job['status'] in ('queued','running'):
+        text='Generating your script.' if job['stage'] in ('Waiting for worker','Checking production tools') or job['stage'].startswith('Writing ') else 'Your script is completed, scenes are generated. Now generating your video.'
+    else:text=f"{job['request']['title']}\n{job['progress']}% · {job['stage']}"
+    if detailed and job['status'] in ('queued','running'):text=job['request']['title']+'\n'+text
     if job['status'] in ('failed','paused'):text+='\nProduction paused. '+(job.get('error') or '')[:1200]+'\nUse /resume to retry saved work. Check Replicate billing, quota, and the saved operation.'
     if job['status']=='cancelled':text+='\nStopped. Use /resume to continue.'
     if job['status']=='complete':text+='\nYour film is ready.'
@@ -91,6 +96,9 @@ class Service:
         if command in ('/start','/id'):
             self.api.text(cid,HELP)
             return
+        if not command.startswith('/') and text.casefold()==READY_VIDEO_REQUEST:
+            text=READY_VIDEO_TOPIC
+            self.api.text(cid,f"Okay, I'm going with this topic: {text}.\n\nGenerating your script.")
         if not command.startswith('/') and is_casual_message(text):
             self.api.text(cid,VIDEO_ONLY)
             return
@@ -118,7 +126,7 @@ class Service:
                 if command=='/keep':
                     with store.db() as c:c.execute("UPDATE telegram_reviews SET state='kept' WHERE job_id=?",(job['id'],))
                     self.api.text(cid,'Kept this version. It will not be published unless you approve it later.');return
-            if command=='/status':self.api.text(cid,status_text(job));return
+            if command=='/status':self.api.text(cid,status_text(job,detailed=True));return
             if command=='/scene':
                 number=text.partition(' ')[2].strip()
                 if number not in {str(n) for n in range(1,7)}:self.api.text(cid,'Use /scene followed by a number from 1 to 6. Live regeneration uses paid APIs.');return
