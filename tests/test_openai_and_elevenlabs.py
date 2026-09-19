@@ -1,4 +1,5 @@
 import httpx
+import pytest
 from pydantic import BaseModel
 from app import openai_text, elevenlabs_tts
 
@@ -31,3 +32,21 @@ def test_elevenlabs_persists_audio_and_journal(tmp_path, monkeypatch):
     elevenlabs_tts.synthesize('नमस्ते', target, lambda: None)
     assert target.read_bytes() == b'ID3audio'
     assert target.with_suffix('.operation.json').exists()
+
+
+def test_elevenlabs_resume_retries_one_known_failed_request(tmp_path, monkeypatch):
+    monkeypatch.setenv('ELEVENLABS_API_KEY', 'test-key')
+    monkeypatch.setenv('ELEVENLABS_VOICE_ID', 'voice-id')
+    calls=[]
+    def post(url, **kwargs):
+        calls.append(url)
+        if len(calls)==1:
+            return httpx.Response(429, text='quota temporarily unavailable', request=httpx.Request('POST', url))
+        return httpx.Response(200, content=b'ID3audio', request=httpx.Request('POST', url))
+    monkeypatch.setattr(httpx, 'post', post)
+    target=tmp_path/'speech-01.mp3'
+    with pytest.raises(RuntimeError,match='saved operation'):
+        elevenlabs_tts.synthesize('नमस्ते',target,lambda:None)
+    elevenlabs_tts.synthesize('नमस्ते',target,lambda:None)
+    assert target.read_bytes()==b'ID3audio'
+    assert (tmp_path/'speech-01-attempt-1.operation.json').exists()

@@ -21,14 +21,23 @@ def synthesize(text: str, target: Path, checkpoint):
     journal = target.with_suffix('.operation.json')
     record = {
         'provider': 'elevenlabs', 'voice_id': voice, 'model': model,
-        'text_sha256': hashlib.sha256(text.encode()).hexdigest(), 'status': 'submitting', 'done': False,
+        'text_sha256': hashlib.sha256(text.encode()).hexdigest(), 'status': 'submitting', 'done': False, 'attempt': 1,
     }
     if journal.exists():
         saved = store.read(journal)
         if any(saved.get(key) != record[key] for key in ('voice_id', 'model', 'text_sha256')):
             raise RuntimeError('Saved ElevenLabs inputs differ. Inspect the existing operation before changing it.')
-        if saved.get('done'):
+        if saved.get('done') and saved.get('status') != 'failed':
             raise RuntimeError('Saved ElevenLabs audio is missing. Inspect the existing operation before regenerating it.')
+        if saved.get('status') == 'failed':
+            # A new /resume is explicit authorization to retry a known failed
+            # request; retain the old record and keep the retry bounded.
+            previous = int(saved.get('attempt', 1))
+            if previous >= int(os.getenv('ELEVENLABS_MAX_ATTEMPTS', '2')):
+                raise RuntimeError('ElevenLabs narration failed twice. Check the saved operation before another retry.')
+            store.save(target.with_name(target.stem+f'-attempt-{previous}.operation.json'), saved)
+            record['attempt'] = previous + 1
+            store.save(journal, record)
     else:
         store.save(journal, record)
     checkpoint()
@@ -43,9 +52,13 @@ def synthesize(text: str, target: Path, checkpoint):
         audio = response.content
         if not audio:
             raise ValueError('Empty audio')
-    except (httpx.HTTPError, ValueError):
-        record.update(status='failed', done=True); store.save(journal, record)
-        raise RuntimeError('ElevenLabs narration generation failed; check the API key, voice access and quota.') from None
+    except (httpx.HTTPError, ValueError) as exc:
+        detail = 'request failed'
+        if isinstance(exc, httpx.HTTPStatusError):
+            detail = f'HTTP {exc.response.status_code}: {exc.response.text[:500]}'
+        detail = detail.replace(key, '[redacted]')
+        record.update(status='failed', done=True, error=detail); store.save(journal, record)
+        raise RuntimeError('ElevenLabs narration generation failed; check the saved operation for the provider response.') from None
     temporary = target.with_suffix('.partial.mp3')
     temporary.write_bytes(audio); temporary.replace(target)
     record.update(status='succeeded', done=True, audio_sha256=hashlib.sha256(audio).hexdigest())
