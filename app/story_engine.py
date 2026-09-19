@@ -124,13 +124,29 @@ def build(provider,folder,request,progress):
     for attempt in range(3):
         progress('Writing and checking script'+(' revision '+str(attempt) if attempt else ''),10+attempt*2)
         draftpath=folder/f'script-draft-{attempt+1}.json';reviewpath=folder/f'script-review-{attempt+1}.json'
-        prompt=context+'\nWrite exactly six spoken beats, one for each act, following the blueprint. NARRATOR or exact character names. Preserve the act order and make every beat visually actionable.\n'
+        prompt=context+'\nWrite exactly six spoken beats, one for each act, following the blueprint. Use exactly one NARRATOR beat and at least one, but no more than three, named adult character speakers. Every beat must contain 12-22 space-separated words and the total must contain 90-120 words. Before responding, count every beat and the total yourself. Preserve the act order and make every beat visually actionable.\n'
         if draft:prompt+='PREVIOUS DRAFT: '+json.dumps(draft,ensure_ascii=False)+'\nREVISE THESE FAILURES: '+feedback
         draft=Story.model_validate(store.read(draftpath)).model_dump() if draftpath.exists() else provider.structured(prompt,Story)
-        store.save(draftpath,draft)
+        if not draftpath.exists():store.save(draftpath,draft)
         issues,text,words=script_issues(draft,history)
-        critique=store.read(reviewpath) if reviewpath.exists() else provider.structured(context+'\nIndependently critique ONLY the actual spoken script. Every course requirement must be audible, not just present in the blueprint. Assess cause/effect, progressive dread, emotional stakes and novelty vs earlier premises. Fail weak or missing elements. Quote evidence.\nSCRIPT: '+json.dumps(draft,ensure_ascii=False),Critique)
-        store.save(reviewpath,critique)
+        repaired=False
+        if issues:
+            # Keep the rejected draft intact.  A resume can repair a prior
+            # structural miss rather than replaying the same saved invalid text.
+            feedback='\n'.join(issues)
+            repairpath=folder/f'script-repair-{attempt+1}.json'
+            repair_prompt=prompt+'\nCURRENT INVALID DRAFT: '+json.dumps(draft,ensure_ascii=False)+'\nREPAIR ONLY THE STRUCTURAL FAILURES: '+feedback+' Return a complete replacement Story JSON.'
+            draft=Story.model_validate(store.read(repairpath)).model_dump() if repairpath.exists() else provider.structured(repair_prompt,Story)
+            if not repairpath.exists():store.save(repairpath,draft)
+            repaired=True
+            issues,text,words=script_issues(draft,history)
+            if issues:
+                feedback='\n'.join(issues)
+                continue
+        # A review of the rejected draft cannot validate its replacement.
+        critique_path=folder/f'script-repair-{attempt+1}-review.json' if repaired else reviewpath
+        critique=store.read(critique_path) if critique_path.exists() else provider.structured(context+'\nIndependently critique ONLY the actual spoken script. Every course requirement must be audible, not just present in the blueprint. Assess cause/effect, progressive dread, emotional stakes and novelty vs earlier premises. Fail weak or missing elements. Quote evidence.\nSCRIPT: '+json.dumps(draft,ensure_ascii=False),Critique)
+        store.save(critique_path,critique)
         issues += [c['name']+': '+c['correction'] for c in critique['criteria'] if not c['passed']]
         if not issues:
             store.save(folder/'story.json',draft)

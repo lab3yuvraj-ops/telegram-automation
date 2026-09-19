@@ -6,6 +6,32 @@ from app.models import Request, Story, validate_links
 from app.planning import demo_plan
 from app.replicate_provider import Replicate
 
+def test_resume_repairs_saved_invalid_script_before_review(tmp_path,monkeypatch):
+    from app import auth,story_engine
+    monkeypatch.setattr(store,'DATA',tmp_path)
+    monkeypatch.delenv('DATABASE_URL',raising=False)
+    store.init();auth.init()
+    ident=store.create(Request(title='The last hotel').model_dump())
+    folder=store.folder(ident)
+    invalid={'hook':'A hotel waits.','entity':'The bellman.','lines':[{'speaker':'NARRATOR','text':'Too short.','emotion':'fear'} for _ in range(6)]}
+    store.save(folder/'script-draft-1.json',invalid)
+    class Provider:
+        def __init__(self):self.story_calls=0
+        def structured(self,prompt,schema):
+            if schema is story_engine.Concept:return story_engine.Concept(hindi_title='होटल',english_title='The last hotel',transliteration='Hotel',category='Horror',hook_type='DREAD',hook='A bell rings.',brief='A traveler is trapped.',emotional_core='grief',entity_archetype='bellman',input_fit='hotel',originality_signature='traveler, hotel, bell rule, old wound, key ritual, final twist').model_dump()
+            if schema is story_engine.Blueprint:return story_engine.Blueprint(authenticity_anchor='hotel',protagonist_need='safety',wrongness_signal='bell',isolation_lock='locked doors',entity_rule='answer no bells',historical_wound='abandoned guest',time_gap='twenty years',survival_by_wit_or_ritual='break the bell',grievance_named='betrayal',twist_recontextualizes='the exit',acts=[story_engine.Act(act=act,scenes=[i+1],action='action',audience_question='why',payoff_or_clue='clue') for i,act in enumerate(story_engine.ACTS)]).model_dump()
+            if schema is Story:
+                self.story_calls+=1
+                return {'hook':'A hotel waits.','entity':'The bellman.','lines':[{'speaker':'NARRATOR' if i==0 else 'Meera','text':'one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen','emotion':'fear'} for i in range(6)]}
+            if schema is story_engine.Critique:return {'criteria':[{'name':name,'passed':True,'evidence':'ok','correction':''} for name in ('hook','rupture','escalation','rule','truth','climax','twist','dialogue','fiction','originality')]}
+            raise AssertionError(schema)
+    provider=Provider()
+    story_engine.build(provider,folder,Request(title='The last hotel').model_dump(),lambda *args:None)
+    assert store.read(folder/'script-draft-1.json')==invalid
+    assert (folder/'script-repair-1.json').exists()
+    assert (folder/'script-repair-1-review.json').exists()
+    assert provider.story_calls==1
+
 def test_six_beats_and_landscape_only():
     p=demo_plan({'title':'The last ride'})
     Story.model_validate(p['story'])
